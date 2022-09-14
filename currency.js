@@ -79,10 +79,10 @@
             console.log("less than 1", rate);
             g1.push({ base: currency, value: rate, to: currencies[index], });
           }
-          if (rate > 1 || rate < 1.5) {
+          if (rate >= 1 && rate < 1.5) {
             g2.push({ base: currency, value: rate, to: currencies[index], });
           }
-          if (rate > 1.5) {
+          if (rate >= 1.5) {
             g3.push({
               base: currency,
               value: rate,
