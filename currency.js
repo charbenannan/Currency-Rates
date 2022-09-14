@@ -38,7 +38,7 @@
           },
           {
             name: "NZD",
-            alternates: ["AUD", "CAD", "BGN", "CHF", "EUR", "USD"],
+            alternates: ["AUD", "BGN", "CAD", "CHF", "EUR", "USD"],
           },
         ];
         let requestPromise = [];
