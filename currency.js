@@ -1,13 +1,16 @@
- let finalData = null;
+let finalData = null;
       const pairs = [];
+
+      
       async function fetchRateData(currency) {
         const pairs = [];
         $("#group1").empty();
         $("#group2").empty();
         $("#group3").empty();
-        $("#group1").append(" <h1>Group1</h1>")
-        $("#group2").append(" <h1>Group2</h1>")
-        $("#group3").append(" <h1>Group3</h1>")
+        $("#length").empty();
+        $("#group1").append(" <h1>Group1</h1>");
+        $("#group2").append(" <h1>Group2</h1>");
+        $("#group3").append(" <h1>Group3</h1>");
         let currencies = ["AUD", "BGN", "CAD", "CHF", "EUR", "USD", "NZD"];
         currencies = currencies.filter((item) => item !== currency);
 
@@ -53,34 +56,33 @@
 
               ratePairs.push(response);
             });
-            // const rr = await Promise.all(ratePairs);
+           
             pairs.push({ name: baseName, ratePairs });
           });
         const resolveAll = await Promise.all(pairs[0].ratePairs);
 
-        let fd = [];
+        let finalValue = [];
         let g1 = [];
         let g2 = [];
         let g3 = [];
-        // console.log(resolveAll)
+        
         resolveAll.forEach(async (e, index) => {
           let resp = e.json();
-          fd.push(resp);
+          finalValue.push(resp);
         });
-        fd = await Promise.all(fd);
+        finalValue = await Promise.all(finalValue);
+        let all = [];
 
-        fd.forEach(async (e, index) => {
+        finalValue.forEach(async (e, index) => {
           const rate = e[currencies[index].toLowerCase()];
-          //   console.log(rate)
-          //   fd.push({ rate, c: currencies[index] });
-
-          console.log(rate);
+         
+          all.push({ pair: `${currency}-${currencies[index]}`, rate: rate });
+         
           if (rate < 1) {
-            console.log("less than 1", rate);
-            g1.push({ base: currency, value: rate, to: currencies[index], });
+            g1.push({ base: currency, value: rate, to: currencies[index] });
           }
           if (rate >= 1 && rate < 1.5) {
-            g2.push({ base: currency, value: rate, to: currencies[index], });
+            g2.push({ base: currency, value: rate, to: currencies[index] });
           }
           if (rate >= 1.5) {
             g3.push({
@@ -89,39 +91,48 @@
               to: currencies[index],
             });
           }
-          finalData = { g1, g2, g3 };
-          //   console.log(resp, index);
+          finalData = { g1, g2, g3};
+         
         });
 
-        // console.log(fd, "fd");
-        // console.log(g1,"g1")
-
-        //render group 1
+        
         finalData.g1.map((item) =>
-          $("#group1").append(`<div>${item.base}-${item.to} : ${item.value}</div>`)
+          $("#group1").append(
+            `<div>${item.base}-${item.to} : ${item.value}</div>`
+          )
         );
-        $("#group1").append(`<p>Count : ${finalData.g1.length}</p>`)
+        $("#group1").append(`<p>Count : ${finalData.g1.length}</p>`);
         finalData.g2.map((item) =>
-          $("#group2").append(`<div>${item.base}-${item.to} : ${item.value}</div>`)
+          $("#group2").append(
+            `<div>${item.base}-${item.to} : ${item.value}</div>`
+          )
         );
-        $("#group2").append(`<p>Count : ${finalData.g2.length}</p>`)
+        $("#group2").append(`<p>Count : ${finalData.g2.length}</p>`);
         finalData.g3.map((item) =>
-          $("#group3").append(`<div>${item.base}-${item.to} : ${item.value}</div>`)
+          $("#group3").append(
+            `<div>${item.base}-${item.to} : ${item.value}</div>`
+          )
         );
-        $("#group3").append(`<p>Count : ${finalData.g3.length}</p>`)
-        console.log(finalData, "final");
-
-        // pairs[0].ratePairs.forEach((element, index) => {
-        //   console.log("dfd");
-        //   $("#output").append(`<div>${element[currencies[index]]}666</div>`);
-        // });
-        // console.log(resolveAll, "here");
+        $("#group3").append(`<p>Count : ${finalData.g3.length}</p>`);
+        
+        const valid = [];
+        for (i = 0; i < all.length; i++) {
+          const element = all[i];
+          const res = all
+            .filter((a) => a.pair !== element.pair)
+            .filter((x) => Math.abs(element.rate - x.rate) <= 0.5);
+          valid.push({ pair: element.pair, result: res, count: res.length });
+        }
+       
+        const found = valid.sort((a, b) => b.count - a.count)[0];
+        $("#length").append(
+          `<p>Length of the longest array is : ${found.count}</p>`
+        );
+       
       }
 
-      //    fetchRateData()
-
+      
       async function onChangeCurrency() {
-        console.log("jjj");
         var x = document.getElementById("rates").value;
         await fetchRateData(x);
       }
