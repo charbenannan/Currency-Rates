@@ -1,4 +1,5 @@
 # Currency-Rates
+http://currencyrates.infinityfreeapp.com/
 Currency Rates application like its name suggests, shows the rate for currency pairs with USD, EUR, AUD, CAD, CHF, NZD, BGN, as base currencies and the value of the possible pair.
 This application was developed using JavaScript, with jquery library, implementing the currency-api by Fawazhmed0 and styled with CSS. When a user selects a currency from 
 the dropdown, it clears the currently displayed rates and shows the exchange rate for the newly selected currency.
