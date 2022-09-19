@@ -30,18 +30,16 @@ body{
     color: #fff;
     margin-top: 50px;
     border-radius:  20px;
-    box-shadow: #5c6664;
+    box-shadow: #5c6664; 
+}
+#length{
+    color: #fff;
 }
 select{
     margin-left: 50%; 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
     outline: 0;
     box-shadow: none;
     border:0 !important;
-    background-color: #5c6664;
     background-image: none;
     width:7em;
     height: 3em;
