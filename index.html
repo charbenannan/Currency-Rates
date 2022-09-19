@@ -1,29 +1,37 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Exchange Rate App</title>
-    <link rel="stylesheet" src="style.css">
-</head>
+  <head>
+    <title>Exchange Rate App</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
 
-<body>
-<p>Exchange Rate Today</p>
-<form action="">
-<select name="rates" id="rates">
-    <option value="AUD">AUD</option>
-    <option value="BGN">BGN</option>
-    <option value="CAD">CAD</option>
-    <option value="CHF">CHF</option>
-    <option value="EUR" id="EUR">EUR</option>
-    <option value="USD" selected="selected" id="USD">USD</option>
-    <option value="NZD">NZD</option>
-</select>
-</form>
+  <body>
+    <div class="dropdown">
+    <h1>Exchange Rate Today</h1>
+    <div class="select">
+      <select onchange="onChangeCurrency()" name="rates" id="rates">
+        <option value="AUD">AUD</option>
+        <option value="BGN">BGN</option>
+        <option value="CAD">CAD</option>
+        <option value="CHF">CHF</option>
+        <option value="EUR" id="EUR">EUR</option>
+        <option value="USD" selected="selected" id="USD">USD</option>
+        <option value="NZD">NZD</option>
+        <img src="./arrow.png" alt=""> 
+      </select>
+    </div>
+    <div class="box">
+      <div id="group1"></div>
+      <div id="group2"></div>
+      <div id="group3"></div>
+    </div>
+    <div id="length"></div>
+  </div>
+
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
       integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-<script src="currency.js"></script>
-</body>
-</html>
+      <script src="currency.js"></script>
